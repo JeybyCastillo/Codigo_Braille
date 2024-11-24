@@ -1,0 +1,46 @@
+//Pseudocodigo del codigo de bloques
+
+
+// Evento: Cuando se hace clic en el botón 'Enviar Texto'
+when ButtonEnviarTexto.Click do
+
+    // Mostrar el modal para ingresar texto
+    set EnviarTextoModal.Visible to true 
+
+// Evento: Cuando se hace clic en el botón 'Cerrar' en el modal de 'Enviar Texto'
+when CerrarEnviarTextoModal.Click do
+
+    // Ocultar el modal de ingreso de texto
+    set EnviarTextoModal.Visible to false 
+
+// Evento: Cuando se hace clic en el botón 'Enviar'
+when ButtonEnviar.Click do
+
+    // Enviar el texto ingresado en el campo de texto (TextBox) al Arduino usando Bluetooth
+    call BluetoothClient.SendText(TextBox.Text)
+
+// Evento: Cuando se hace clic en el botón 'Chequear Solenoides'
+when ButtonChequeoSolenoides.Click do
+
+    // Mostrar el modal para visualizar el estado de los solenoides
+    set ChequeoSolenoidesModal.Visible to true
+ // Enviar el comando "CHECK_SOLENOIDS" al Arduino para solicitar el estado de los solenoides
+    call BluetoothClient.SendText("CHECK_SOLENOIDS")
+// Evento: Cuando el Bluetooth recibe texto desde el Arduino
+when BluetoothClient.ReceivingText do
+
+    // Mostrar el texto recibido (estado de los solenoides) en la etiqueta LabelSolenoides
+    set LabelSolenoides.Text to receivedText
+
+// Evento: Cuando se hace clic en el botón 'Cerrar' en el modal de 'Chequear Solenoides'
+when CerrarChequeoSolenoidesModal.Click do
+
+    // Ocultar el modal que muestra el estado de los solenoides
+    set ChequeoSolenoidesModal.Visible to false 
+
+// Evento: Cuando se hace clic en el botón 'Salir'
+when ButtonSalir.Click do
+
+    // Cerrar la aplicación
+    close application
+
